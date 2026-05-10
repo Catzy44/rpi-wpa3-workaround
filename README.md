@@ -4,7 +4,7 @@ Hewo!
 
 Let me present to You my small WPA3 workaround for Raspberry Pi and other stubborn little boxes.
 
-This project takes control of `wlan0` away from `NetworkManager` and lets a `dedicated scripted` `wpa_supplicant v2.11` service handle the connection directly. This `included version is from DEV enviorment (v2.11` instead o v2.10) and it's capable of handling this WPA3
+This project takes control of `wlan0` away from `NetworkManager` and lets a `dedicated scripted` `wpa_supplicant v2.11` service handle the connection directly. This `included version is from DEV enviorment (v2.11` instead o v2.10) and it's `capable of handling this WPA3`
 
 Useful when Raspberry Pi keeps failing on WPA3/SAE networks, loops on password prompts, or refuses to stay connected even though the password is correct.
 

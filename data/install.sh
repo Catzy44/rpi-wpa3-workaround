@@ -5,7 +5,7 @@ source ./var.sh
 
 echo "[1] - copying files"
 
-sudo cp _rpi-wpa3.service /etc/systemd/system/
+sudo cp "$SERVICE" /etc/systemd/system/
 
 echo "[2] - setting permissions"
 
@@ -14,13 +14,15 @@ sudo find . -type d -exec chmod 755 {} \;
 sudo chmod +x hostap/wpa_supplicant/* 2>/dev/null || true
 sudo chmod +x *.sh
 
+echo "[3] - reloaging da daemon..."
+
 sudo systemctl daemon-reload
 
-echo "[3] - unmanaging interface"
+echo "[4] - unmanaging interface"
 
 sudo ./interface_unmanage.sh
 
-echo "[4] - starting service, connecting..."
+echo "[5] - starting service, connecting..."
 
 sudo systemctl enable "$SERVICE"
 sudo systemctl start "$SERVICE"

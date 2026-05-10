@@ -1,0 +1,14 @@
+[Unit]
+Description=RPi manual WPA3 SAE wlan0
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/rpi_wpa3/service_start.sh
+ExecStop=/opt/rpi_wpa3/service_stop.sh
+TimeoutStartSec=60
+
+[Install]
+WantedBy=multi-user.target

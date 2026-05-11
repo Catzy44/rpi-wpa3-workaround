@@ -14,7 +14,7 @@ This thing takes control of `wlan0` away from NetworkManager.
 
 If you run it over SSH through the same Wi-Fi you are trying to fix, and the config is wrong, the little box may politely disappear from the network.
 
-Physical access is recommended. Tiny fluffy cat rules.
+Physical access is recommended.
 ## TLDR
 
 ```bash

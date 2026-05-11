@@ -1,4 +1,4 @@
-# rpi-wpa3-workaround
+# Raspberry Pi WPA3 workaround / fix
 
 Hewo!
 

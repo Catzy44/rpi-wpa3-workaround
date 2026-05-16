@@ -28,7 +28,7 @@ sudo ./install.sh
 
 - installs files into `/opt/rpi_wpa3`
 - installs a systemd service
-- keeps Wi-Fi connection config in one file
+- reads wlan0/WPA3 conn config from an separated file
 - tells NetworkManager to leave wlan0 alone
 - runs its own wpa_supplicant for WPA3/SAE
 - gives you simple install, configure and uninstall scripts
@@ -44,11 +44,11 @@ data/            service file and helper scripts
 
 ## Details
 
-Yeah so I had a headache because I really wanted to implement WPA3 into my network and even the shi... Worst microcontrollers like ESP32 connected seamlessly to it my RPI5 did not!
+Yeah so I had a headache because I really wanted to implement WPA3 into my network and even thought the shi... Worst microcontrollers like ESP32 connected seamlessly to it my RPI5 did not!
 Why?... Because... RPI is using outdated wpa_supplicant (v2.10) and for the needs of the mightyy WPA3 u need v2.11... Which is not working with included NetworkManager...
 So... I have built this package. Thich contains already-compiled binaries od 2.11 wpa_supplicant for ARM64 and some scrips which bypass included NetworkManager entiriely.
 It is not gonna replace your v2.10 wpa_supplicant. It's gonna use v2.11 launched totally separatelly just for the sake of one wlan card of ur choosing.
-It's gonna install a service into your system. A service which is controlling this 2.11 wpa_supplicant directly and getting it to connect to WPA3 network of your choosing.
+It's gonna install a service into your system. A service which is gonna control this 2.11 wpa_supplicant directly and get it to connect to WPA3 network of your choosing.
 And thats it! Mrwah!
 
 ## Tested on

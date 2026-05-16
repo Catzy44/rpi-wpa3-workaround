@@ -43,8 +43,8 @@ command -v dhcpcd >/dev/null || { echo "[!] error: dhcpcd not installed!"; exit 
 
 ### 6 - configure the connection before da files're copied
 INSTALLER_CONNECTION_CONF_FILE="$INSTALLER_DIR/data/connection.conf"
-read -p "[?] - Do you want to configure the connection now? [y/N]" ANSWER
-if [[ "$ANSWER" == "y" || "$ANSWER" == "Y" ]]; then
+read -p "[?] - Do you want to configure the connection now? [Y/n]" ANSWER
+if [[ "$ANSWER" != "n" && "$ANSWER" != "N" ]]; then
     sudo nano "$INSTALLER_CONNECTION_CONF_FILE"
 fi
 

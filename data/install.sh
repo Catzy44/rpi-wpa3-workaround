@@ -26,3 +26,8 @@ echo "[5] - starting service, connecting..."
 
 sudo systemctl enable "$SERVICE"
 sudo systemctl start "$SERVICE"
+
+echo "[@] Did it work?"
+echo "    Please star the repo, let's make some noise,"
+echo "    for the RPI devs to fix this in the os xD"
+echo ""

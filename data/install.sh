@@ -1,32 +1,35 @@
+
 #!/bin/bash
 set -e
 cd "$(dirname "$0")"
 source ./var.sh
+S="[installer/opt]"
 
-echo "[1] - copying files"
+echo "$S[1] - copying files..."
 
 sudo cp "$SERVICE" /etc/systemd/system/
 
-echo "[2] - setting permissions"
+echo "$S[2] - setting permissions..."
 
 sudo find . -type f -exec chmod 644 {} \;
 sudo find . -type d -exec chmod 755 {} \;
 sudo chmod +x hostap/wpa_supplicant/* 2>/dev/null || true
 sudo chmod +x *.sh
 
-echo "[3] - reloaging da daemon..."
+echo "$S[3] - reloaging da daemon..."
 
 sudo systemctl daemon-reload
 
-echo "[4] - unmanaging interface"
+echo "$S[4] - unmanaging $IFACE  interface.."
 
 sudo ./interface_unmanage.sh
 
-echo "[5] - starting service, connecting..."
+echo "$S[5] - starting service, connecting..."
 
 sudo systemctl enable "$SERVICE"
 sudo systemctl start "$SERVICE"
 
+echo ""
 echo "[@] Did it work?"
 echo "    Please star the repo, let's make some noise,"
 echo "    for the RPI devs to fix this in the os xD"

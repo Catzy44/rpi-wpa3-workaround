@@ -3,7 +3,7 @@ set -e
 cd "$(dirname "$0")"
 source ./var.sh
 
-echo "[0] kicking ${IFACE} out of the NetworkManager..."
+echo "[service/start][0] kicking ${IFACE} out of the NetworkManager..."
 
 if ! grep -Rqs "unmanaged-devices=.*interface-name:${IFACE}" /etc/NetworkManager/conf.d /usr/lib/NetworkManager/conf.d 2>/dev/null; then
   sudo mkdir -p /etc/NetworkManager/conf.d
@@ -12,15 +12,15 @@ if ! grep -Rqs "unmanaged-devices=.*interface-name:${IFACE}" /etc/NetworkManager
 unmanaged-devices=interface-name:${IFACE}
 EOF
 else
-  echo "${IFACE} is already out of NetworkManager."
+  echo "[service/start][0] ${IFACE} is already out of NetworkManager."
 fi
 
 sudo systemctl restart NetworkManager
 
-echo "[1] NetworkManager's status:"
+echo "[service/start][1] NetworkManager's status:"
 nmcli dev status | grep -E "^(DEVICE|${IFACE})" || true
 
-echo "[1] killing old processes for dla ${IFACE}..."
+echo "[service/start][1] killing old processes for dla ${IFACE}..."
 
 sudo pkill -f "wpa_supplicant.*${IFACE}" 2>/dev/null || true
 sudo pkill -f "dhcpcd.*${IFACE}" 2>/dev/null || true
@@ -30,11 +30,11 @@ sleep 1
 sudo ip link set "$IFACE" up
 sleep 1
 
-echo "[2] starting wpa_supplicant 2.11..."
+echo "[service/start][2] starting wpa_supplicant 2.11..."
 
 sudo "$WPA_SUPP" -B -i "$IFACE" -c "$CONF" -D nl80211
 
-echo "[3] waiting for WPA3/SAE..."
+echo "[service/start][3] waiting for WPA3/SAE..."
 
 connected=0
 
@@ -51,17 +51,17 @@ for i in $(seq 1 30); do
 done
 
 if [ "$connected" -ne 1 ]; then
-  echo "[!]  error: WPA3/SAE did not connect!."
+  echo "[service][!]  error: WPA3/SAE did not connect!."
   sudo "$WPA_CLI" -i "$IFACE" status || true
   exit 1
 fi
 
-echo "[4] getting an IP..."
+echo "[service/start][4] getting an IP..."
 
 sudo dhcpcd -n "$IFACE" || sudo dhcpcd "$IFACE"
 
-echo "[5] Wynik:"
+echo "[service/start][5] result:"
 ip addr show "$IFACE"
 ip route
 
-echo "[+]  status: ${IFACE} is up!."
+echo "[service/start][5]  status: ${IFACE} is up!."
